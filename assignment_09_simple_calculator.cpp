@@ -74,6 +74,91 @@
 #include <limits>
 using namespace std;
 
+// Function prototypes
+double add(double a, double b);
+double subtract(double a, double b);
+double multiply(double a, double b);
+double divide(double a, double b);
+double modulusOperation(double a, double b);
+double exponentiate(double a, double b);
+
+int main() {
+    int choice;
+    double firstNumber, secondNumber;
+
+    cout << fixed << setprecision(2);
+
+    while (true) {
+        cout << "\n=============================" << endl;
+        cout << "      SIMPLE CALCULATOR" << endl;
+        cout << "=============================" << endl;
+        cout << "1. Addition" << endl;
+        cout << "2. Subtraction" << endl;
+        cout << "3. Multiplication" << endl;
+        cout << "4. Division" << endl;
+        cout << "5. Modulus" << endl;
+        cout << "6. Exponentiation" << endl;
+        cout << "7. Quit" << endl;
+        cout << "Select an operation (1-7): ";
+
+        while (!(cin >> choice)) {
+            cout << "Invalid input. Please enter a number from 1 to 7." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Select an operation (1-7): ";
+        }
+
+        if (choice == 7) {
+            cout << "Goodbye!" << endl;
+            break;
+        }
+
+        if (choice < 1 || choice > 6) {
+            cout << "Invalid choice. Please select a valid operation." << endl;
+            continue;
+        }
+
+        cout << "Enter first number: ";
+        while (!(cin >> firstNumber)) {
+            cout << "Invalid number. Please enter a valid number." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Enter first number: ";
+        }
+
+        cout << "Enter second number: ";
+        while (!(cin >> secondNumber)) {
+            cout << "Invalid number. Please enter a valid number." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Enter second number: ";
+        }
+
+        switch (choice) {
+        case 1:
+            cout << "Result: " << firstNumber << " + " << secondNumber << " = " << add(firstNumber, secondNumber) << endl;
+            break;
+        case 2:
+            cout << "Result: " << firstNumber << " - " << secondNumber << " = " << subtract(firstNumber, secondNumber) << endl;
+            break;
+        case 3:
+            cout << "Result: " << firstNumber << " * " << secondNumber << " = " << multiply(firstNumber, secondNumber) << endl;
+            break;
+        case 4:
+            cout << "Result: " << firstNumber << " / " << secondNumber << " = " << divide(firstNumber, secondNumber) << endl;
+            break;
+        case 5:
+            cout << "Result: " << firstNumber << " % " << secondNumber << " = " << modulusOperation(firstNumber, secondNumber) << endl;
+            break;
+        case 6:
+            cout << "Result: " << firstNumber << " ^ " << secondNumber << " = " << exponentiate(firstNumber, secondNumber) << endl;
+            break;
+        }
+    }
+
+    return 0;
+}
+
 double add(double a, double b) {
     return a + b;
 }
@@ -94,102 +179,28 @@ double divide(double a, double b) {
     return a / b;
 }
 
-int modulus(int a, int b) {
+double modulusOperation(double a, double b) {
     if (b == 0) {
         cout << "Error: Cannot divide by zero." << endl;
         return 0;
     }
-    return a % b;
+
+    int left = static_cast<int>(a);
+    int right = static_cast<int>(b);
+    return static_cast<double>(left % right);
 }
 
-double exponentiate(double base, double power) {
-    if (power < 0) {
+double exponentiate(double a, double b) {
+    if (b < 0) {
         cout << "Error: Exponent must be non-negative." << endl;
         return 0;
     }
-    return pow(base, power);
-}
 
-int main() {
-    int choice;
-    double firstNumber, secondNumber;
-    int firstInt, secondInt;
-
-    cout << fixed << setprecision(2);
-
-    while (true) {
-        cout << "\n============================" << endl;
-        cout << "     SIMPLE CALCULATOR" << endl;
-        cout << "============================" << endl;
-        cout << "1. Addition" << endl;
-        cout << "2. Subtraction" << endl;
-        cout << "3. Multiplication" << endl;
-        cout << "4. Division" << endl;
-        cout << "5. Modulus" << endl;
-        cout << "6. Exponentiation" << endl;
-        cout << "7. Quit" << endl;
-        cout << "Select an operation (1-7): ";
-        cin >> choice;
-
-        if (cin.fail()) {
-            cout << "Invalid choice. Please enter a number from 1 to 7." << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            continue;
-        }
-
-        if (choice < 1 || choice > 7) {
-            cout << "Invalid choice. Please enter a number from 1 to 7." << endl;
-            continue;
-        }
-
-        if (choice == 7) {
-            cout << "Goodbye!" << endl;
-            break;
-        }
-
-        cout << "Enter first number: ";
-        cin >> firstNumber;
-        if (cin.fail()) {
-            cout << "Invalid number entered." << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            continue;
-        }
-
-        cout << "Enter second number: ";
-        cin >> secondNumber;
-        if (cin.fail()) {
-            cout << "Invalid number entered." << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            continue;
-        }
-
-        switch (choice) {
-            case 1:
-                cout << "Result: " << firstNumber << " + " << secondNumber << " = " << add(firstNumber, secondNumber) << endl;
-                break;
-            case 2:
-                cout << "Result: " << firstNumber << " - " << secondNumber << " = " << subtract(firstNumber, secondNumber) << endl;
-                break;
-            case 3:
-                cout << "Result: " << firstNumber << " * " << secondNumber << " = " << multiply(firstNumber, secondNumber) << endl;
-                break;
-            case 4:
-                cout << "Result: " << firstNumber << " / " << secondNumber << " = " << divide(firstNumber, secondNumber) << endl;
-                break;
-            case 5:
-                firstInt = static_cast<int>(firstNumber);
-                secondInt = static_cast<int>(secondNumber);
-                cout << "Result: " << firstInt << " % " << secondInt << " = " << modulus(firstInt, secondInt) << endl;
-                break;
-            case 6:
-                cout << "Result: " << firstNumber << " ^ " << secondNumber << " = " << exponentiate(firstNumber, secondNumber) << endl;
-                break;
-        }
+    double result = 1.0;
+    for (int i = 0; i < static_cast<int>(b); ++i) {
+        result *= a;
     }
-
-    return 0;
+    return result;
 }
+
 

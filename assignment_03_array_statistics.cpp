@@ -42,3 +42,64 @@
 #include <iostream>
 using namespace std;
 
+int calculateSum(int arr[], int n) {
+    int sum = 0;
+    for (int i = 0; i < n; ++i) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+double calculateAverage(int arr[], int n) {
+    int sum = calculateSum(arr, n);
+    return static_cast<double>(sum) / n;
+}
+
+int calculateMaximum(int arr[], int n) {
+    int maxValue = arr[0];
+    for (int i = 1; i < n; ++i) {
+        if (arr[i] > maxValue) {
+            maxValue = arr[i];
+        }
+    }
+    return maxValue;
+}
+
+int calculateMinimum(int arr[], int n) {
+    int minValue = arr[0];
+    for (int i = 1; i < n; ++i) {
+        if (arr[i] < minValue) {
+            minValue = arr[i];
+        }
+    }
+    return minValue;
+}
+
+int main() {
+    int n;
+
+    cout << "How many numbers? ";
+    cin >> n;
+
+    if (n <= 0) {
+        cout << "Error: N must be a positive integer." << endl;
+        return 0;
+    }
+
+    int numbers[100];
+
+    for (int i = 0; i < n; ++i) {
+        cout << "Enter number " << i + 1 << ": ";
+        cin >> numbers[i];
+    }
+
+    cout << endl;
+    cout << "Results:" << endl;
+    cout << "Sum:     " << calculateSum(numbers, n) << endl;
+    cout << "Average: " << calculateAverage(numbers, n) << endl;
+    cout << "Maximum: " << calculateMaximum(numbers, n) << endl;
+    cout << "Minimum: " << calculateMinimum(numbers, n) << endl;
+
+    return 0;
+}
+
